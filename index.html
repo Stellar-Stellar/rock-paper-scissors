@@ -10,6 +10,10 @@
 </body>
 <script>
 
+    /* Main function. Gets a new selection from the player and the computer with every loop
+    to prevent the selection from staying the during every round. Calls playRound and prints out
+    the current scores. Prints out the overall winner when the loop ends*/
+
     function game(){
         for(let i = 0; i < 5; i++){
             playerSelection = getPlayerChoice()
@@ -52,8 +56,8 @@
         } else if (playerSelection.toLowerCase() === computerSelection) {
             result = "It's a Tie!"
         }
-        console.log(computerSelection)
-        return result
+        console.log("The computer chose: " + computerSelection)
+        console.log(result)
     }
 
     function getComputerChoice(){
