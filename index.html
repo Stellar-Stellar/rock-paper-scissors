@@ -7,21 +7,50 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <button id="rock-btn">Rock</button>
+    <button id="paper-btn">Paper</button>
+    <button id="scissors-btn">Scissors</button>
+
+    <div id="results"></div>
 </body>
 <script>
+
+    const rock_btn = document.querySelector('#rock-btn')
+    const paper_btn = document.querySelector('#paper-btn')
+    const scissors_btn = document.querySelector('#scissors-btn')
+
+    rock_btn.addEventListener('click', () => {
+        playerSelection = 'rock'
+        console.log(game())
+    })
+
+    paper_btn.addEventListener('click', () => {
+        playerSelection = 'paper'
+        console.log(game())
+    })
+
+    scissors_btn.addEventListener('click', () => {
+        playerSelection = 'scissors'
+        console.log(game())
+    })
+    let playerSelection
+    let computerSelection
+    let playerScore = 0
+    let computerScore = 0
+
+
 
     /* Main function. Gets a new selection from the player and the computer with every loop
     to prevent the selection from staying the during every round. Calls playRound and prints out
     the current scores. Prints out the overall winner when the loop ends*/
 
     function game(){
-        for(let i = 0; i < 5; i++){
-            playerSelection = getPlayerChoice()
+        
             computerSelection = getComputerChoice()
             playRound(playerSelection, computerSelection)
             console.log("Player Score: " + playerScore)
             console.log("Computer Score: " + computerScore)
-        }
+        
 
         if(playerScore > computerScore) {
             console.log("You Win!")
@@ -31,6 +60,9 @@
             console.log("It's a Tie!")
         }
     }
+
+    /*Checks the player's choice and the computer's choice, then determines which one is the winner and 
+    adjusts the scores accordingly. Prints the computer's choice and the result of the round*/
 
     function playRound(playerSelection, computerSelection){
         let result
@@ -60,6 +92,8 @@
         console.log(result)
     }
 
+    /*Generates a random number and uses that number to determine the computer's choice */
+
     function getComputerChoice(){
         let num = Math.floor(Math.random() * 3) + 1
         let choice
@@ -73,17 +107,12 @@
         return choice
     }
 
+    /*Prompts the player for their choice */
+
     function getPlayerChoice(){
         let choice = prompt("Choose between rock, paper, or scissors")
         return choice
     }
-
-    let playerSelection
-    let computerSelection
-    let playerScore = 0
-    let computerScore = 0
-
-    console.log(game())
 
 
 
