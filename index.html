@@ -14,42 +14,53 @@
     <div id="results"></div>
 </body>
 <script>
-
-    const rock_btn = document.querySelector('#rock-btn')
-    const paper_btn = document.querySelector('#paper-btn')
-    const scissors_btn = document.querySelector('#scissors-btn')
-
-    rock_btn.addEventListener('click', () => {
-        playerSelection = 'rock'
-        console.log(game())
-    })
-
-    paper_btn.addEventListener('click', () => {
-        playerSelection = 'paper'
-        console.log(game())
-    })
-
-    scissors_btn.addEventListener('click', () => {
-        playerSelection = 'scissors'
-        console.log(game())
-    })
+    
+    //right now the scores aren't updating in the DOM. fix pls
     let playerSelection
     let computerSelection
     let playerScore = 0
     let computerScore = 0
 
+    const rock_btn = document.querySelector('#rock-btn')
+    const paper_btn = document.querySelector('#paper-btn')
+    const scissors_btn = document.querySelector('#scissors-btn')
 
+    const results = document.querySelector('#results')
+
+    const player_result = document.createElement('div');
+    player_result.classList.add('player_result')
+    player_result.textContent = "Player Score: " + playerScore
+    const computer_result = document.createElement('div')
+    computer_result.classList.add('computer_result')
+    computer_result.textContent = "Computer Score: " + computerScore
+
+    results.appendChild(player_result)
+    results.appendChild(computer_result)
+    
+
+    rock_btn.addEventListener('click', () => {
+        playerSelection = 'rock'
+        game()
+    })
+
+    paper_btn.addEventListener('click', () => {
+        playerSelection = 'paper'
+        game()
+    })
+
+    scissors_btn.addEventListener('click', () => {
+        playerSelection = 'scissors'
+        game()
+    })
 
     /* Main function. Gets a new selection from the player and the computer with every loop
     to prevent the selection from staying the during every round. Calls playRound and prints out
     the current scores. Prints out the overall winner when the loop ends*/
 
     function game(){
-        
+
             computerSelection = getComputerChoice()
             playRound(playerSelection, computerSelection)
-            console.log("Player Score: " + playerScore)
-            console.log("Computer Score: " + computerScore)
         
 
         if(playerScore > computerScore) {
@@ -104,13 +115,6 @@
         } else if (num === 3) {
             choice = "scissors"
         }
-        return choice
-    }
-
-    /*Prompts the player for their choice */
-
-    function getPlayerChoice(){
-        let choice = prompt("Choose between rock, paper, or scissors")
         return choice
     }
 
