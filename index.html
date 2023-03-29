@@ -15,7 +15,8 @@
 </body>
 <script>
     
-    //right now the scores aren't updating in the DOM. fix pls
+    //Main issues: Game keeps going even after a winner is decided, computer selection
+    //and round winner is not displayed yet
     let playerSelection
     let computerSelection
     let playerScore = 0
@@ -29,11 +30,15 @@
 
     const player_result = document.createElement('div');
     player_result.classList.add('player_result')
-    player_result.textContent = "Player Score: " + playerScore
     const computer_result = document.createElement('div')
     computer_result.classList.add('computer_result')
-    computer_result.textContent = "Computer Score: " + computerScore
+    
+    
+    const computer_selection = document.createElement('div')
+    computer_selection.classList.add('computer_selection')
 
+    player_result.textContent = "Player Score: "
+    computer_result.textContent = "Computer Score: "
     results.appendChild(player_result)
     results.appendChild(computer_result)
     
@@ -63,13 +68,15 @@
             playRound(playerSelection, computerSelection)
         
 
-        if(playerScore > computerScore) {
-            console.log("You Win!")
-        } else if (playerScore < computerScore) {
-            console.log("You Lose!")
+        if(playerScore === 5) {
+            results.textContent = "You Win!"
+        } else if (computerScore === 5) {
+            results.textContent = "You Lose!"
         } else if (playerScore === computerScore) {
             console.log("It's a Tie!")
         }
+
+        return
     }
 
     /*Checks the player's choice and the computer's choice, then determines which one is the winner and 
@@ -100,7 +107,9 @@
             result = "It's a Tie!"
         }
         console.log("The computer chose: " + computerSelection)
-        console.log(result)
+        player_result.textContent = "Player Score: " + playerScore
+        computer_result.textContent = "Computer Score: " + computerScore
+        
     }
 
     /*Generates a random number and uses that number to determine the computer's choice */
