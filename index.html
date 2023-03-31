@@ -14,9 +14,6 @@
     <div id="results"></div>
 </body>
 <script>
-    
-    //Main issues: Game keeps going even after a winner is decided, computer selection
-    //and round winner is not displayed yet
     let playerSelection
     let computerSelection
     let playerScore = 0
@@ -32,6 +29,10 @@
     player_result.classList.add('player_result')
     const computer_result = document.createElement('div')
     computer_result.classList.add('computer_result')
+    const round_result = document.createElement('div')
+    round_result.classList.add('round_result')
+    const game_result = document.createElement('div')
+    game_result.classList.add('game_result')
     
     
     const computer_selection = document.createElement('div')
@@ -39,28 +40,40 @@
 
     player_result.textContent = "Player Score: "
     computer_result.textContent = "Computer Score: "
+    results.appendChild(game_result)
+    results.appendChild(computer_selection)
+    results.appendChild(round_result)
     results.appendChild(player_result)
     results.appendChild(computer_result)
     
 
+    /*Sets the player's selection. Calls the game() function to start the game,
+    but only if either player has less than five points. This is to prevent the game
+    from continuing once a winner is decided */
+
     rock_btn.addEventListener('click', () => {
         playerSelection = 'rock'
-        game()
+        if(playerScore < 5 && computerScore < 5) {
+            game()
+        }
     })
 
     paper_btn.addEventListener('click', () => {
         playerSelection = 'paper'
-        game()
+        if(playerScore < 5 && computerScore < 5) {
+            game()
+        }
     })
 
     scissors_btn.addEventListener('click', () => {
         playerSelection = 'scissors'
-        game()
+        if(playerScore < 5 && computerScore < 5) {
+            game()
+        }
     })
 
-    /* Main function. Gets a new selection from the player and the computer with every loop
-    to prevent the selection from staying the during every round. Calls playRound and prints out
-    the current scores. Prints out the overall winner when the loop ends*/
+    /* Main function. Is called every time the player presses a button.
+    Shows the overall winner when either player reaches five points*/
 
     function game(){
 
@@ -69,18 +82,15 @@
         
 
         if(playerScore === 5) {
-            results.textContent = "You Win!"
+            game_result.textContent = "You Win!"
         } else if (computerScore === 5) {
-            results.textContent = "You Lose!"
-        } else if (playerScore === computerScore) {
-            console.log("It's a Tie!")
-        }
+            game_result.textContent = "You Lose!"
+        } 
 
-        return
     }
 
     /*Checks the player's choice and the computer's choice, then determines which one is the winner and 
-    adjusts the scores accordingly. Prints the computer's choice and the result of the round*/
+    adjusts the scores accordingly. Display the computer's choice and the winner of the round*/
 
     function playRound(playerSelection, computerSelection){
         let result
@@ -106,7 +116,8 @@
         } else if (playerSelection.toLowerCase() === computerSelection) {
             result = "It's a Tie!"
         }
-        console.log("The computer chose: " + computerSelection)
+        computer_selection.textContent = "The computer chose: " + computerSelection
+        round_result.textContent = result
         player_result.textContent = "Player Score: " + playerScore
         computer_result.textContent = "Computer Score: " + computerScore
         
@@ -126,10 +137,6 @@
         }
         return choice
     }
-
-
-
-
 
 
 </script>
